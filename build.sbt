@@ -28,7 +28,6 @@ def javacOptionsVersion(scalaVersion: String): Seq[String] = {
 }
 
 //organization := ""
-
 version := "0.1.0"
 name := "chisel-testutil-demo"
 
@@ -54,15 +53,19 @@ val defaultVersions = Map(
   "chisel-iotesters" -> "1.5.+"
   )
 
+// If you're curious about '%%', see
+// https://www.playframework.com/documentation/2.1.1/SBTDependencies
 libraryDependencies ++= (Seq("chisel3","chisel-iotesters").map {
   dep: String => "edu.berkeley.cs" %% dep % sys.props.getOrElse(dep + "Version", defaultVersions(dep)) })
 
+// use predefined repositories
 resolvers ++= Seq(
   Resolver.sonatypeRepo("snapshots"),
   Resolver.sonatypeRepo("releases")
 )
 
-// Recommendations from http://www.scalatest.org/user_guide/using_scalatest_with_sbt
+// Recommendations from
+// http://www.scalatest.org/user_guide/using_scalatest_with_sbt
 logBuffered in Test := false
 
 // Disable parallel execution when running tests.
