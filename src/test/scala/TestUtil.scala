@@ -129,7 +129,7 @@ object TestUtil {
   def driverhelper[T <: MultiIOModule](args: Array[String], dutgen : () => T, testergen: T => PeekPokeTester[T]) {
     if (verilogonly) {
       //chisel3.Driver.execute(args, dutgen)  // worked in 3.1
-      (new ChiselStage).emitVerilog(dutgen())
+      (new ChiselStage).emitVerilog(dutgen(), args)
     }
     else           iotesters.Driver.execute(args, dutgen) {testergen}
   }

@@ -9,6 +9,9 @@ if [ -z "$1" ] ; then
     echo "verilog or v  : generates a Verilog code"
     echo "list or l     : lists registered modules"
     echo ""
+    ehco "Examples:"
+    echo "To specify a director for Verilog generation"
+    echo "sh run.sh v Foo --target-dir tmpout"
     exit 0
 fi
 
