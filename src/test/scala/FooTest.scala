@@ -7,16 +7,21 @@ import testutil._
 
 class FooUnitTester(c: Foo) extends PeekPokeTester(c) {
 
-  val ntests = 10
+  val nsteps = 10
 
-  for (i <- 0 until ntests) {
+  poke(c.io.en, 1)
+  for (i <- 0 until nsteps) {
+    expect(c.io.out,  i)
+    expect(c.io.out2, i)
+    printf("enabled cnt : %08d\n",  peek(c.io.out).toInt)
+    step(1)
+  }
 
-    poke(c.io.in, i)
-    
-    val ret = if (i>0)  expect(c.io.out, i-1)  else  expect(c.io.out, 0)
-
-    printf("%08d => %08d\n",  i, peek(c.io.out).toInt)
-
+  poke(c.io.en, 0)
+  for (i <- 0 until nsteps) {
+    expect(c.io.out,  nsteps)
+    expect(c.io.out2, nsteps)
+    printf("disabled cnt: %08d\n",  peek(c.io.out).toInt)
     step(1)
   }
 }
